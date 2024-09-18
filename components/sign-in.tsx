@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app } from "@/lib/firebase"; // Ensure you export the initialized app
+import { app, auth } from "@/lib/firebase"; // Ensure you export the initialized app
 
 export const description =
   "A login page with two columns. The first column has the login form with email and password. There's a Forgot your passwork link and a link to sign up if you do not have an account. The second column has a cover image.";
@@ -20,7 +20,6 @@ export function Dashboard() {
     e.preventDefault();
     setError("");
 
-    const auth = getAuth(app);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const idToken = await userCredential.user.getIdToken();
@@ -95,7 +94,7 @@ export function Dashboard() {
           </form>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            <Link href="#" className="underline">
+            <Link href="/sign-up" className="underline"> {/* Update the href to /sign-up */}
               Sign up
             </Link>
           </div>
