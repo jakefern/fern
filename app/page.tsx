@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button"; // Import the Button component
-import { Dashboard } from "@/components/authentication-04"; // Import the Dashboard component
+import { Dashboard } from "@/components/sign-in"; // Import the Dashboard component
 
 export default function Home() {
   return (
