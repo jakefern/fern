@@ -5,41 +5,27 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { app, auth } from "@/lib/firebase"; // Ensure you export the initialized app
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 export const description =
-  "A login page with two columns. The first column has the login form with email and password. There's a Forgot your passwork link and a link to sign up if you do not have an account. The second column has a cover image.";
+  "A login page with a form for email and password. There's a Forgot your password link and a link to sign up if you do not have an account.";
 
-export function Dashboard() {
+export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const idToken = await userCredential.user.getIdToken();
-
-      // console.log("ID Token:", idToken); // Log the ID token
-
-      const response = await fetch("http://localhost:3001/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid email or password");
-      }
-
-      const data = await response.json();
-      console.log("User:", data);
+      await signInWithEmailAndPassword(auth, email, password);
+      console.log("User logged in, Email: ", email, "Password: ", password);
+      router.push("/");
       // Handle successful login (e.g., store user info, redirect, etc.)
     } catch (err) {
       console.error("Login error:", err); // Log the error
@@ -112,3 +98,5 @@ export function Dashboard() {
     </div>
   );
 }
+
+export default SignIn;

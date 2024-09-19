@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import { useState } from "react";
 import Link from "next/link";
 import {useCreateUserWithEmailAndPassword} from 'react-firebase-hooks/auth';
@@ -29,8 +29,6 @@ const SignUp = () => {
             console.log('Error: ', error);
         }
     }
-    // if (loading) return <div>Loading...</div>;
-    // if (error) return <div>Error: {error.message}</div>;
 
     return (
         <div className="flex items-center justify-center min-h-screen"> {/* Center the sign-up box */}
